@@ -7,16 +7,12 @@ import pro.sky.skyproSpringTestMockHomework213.exeption.EmployeeNotFoundExceptio
 import pro.sky.skyproSpringTestMockHomework213.model.Employee;
 
 
-
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
     final int MAX = 10;
+
     private final Map<String, Employee> employeeMap;
 
 
@@ -69,7 +65,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Map<String, Employee> getMap(){
+
         return employeeMap;
+    }
+    @Override
+    public List<Employee>list(){
+        return new ArrayList<>(employeeMap.values());
+    }
+
+    public Employee getEmployee(String firstName, String lastName){
+        return employeeMap.get(getKey(firstName,lastName));
+    }
+    private String getKey(String firstName, String lastName){
+        return firstName+lastName;
     }
     
 

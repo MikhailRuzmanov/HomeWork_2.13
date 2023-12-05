@@ -10,6 +10,7 @@ import pro.sky.skyproSpringTestMockHomework213.exeption.EmployeeNotFoundExceptio
 import pro.sky.skyproSpringTestMockHomework213.model.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -33,7 +34,7 @@ public class DepartmentServiceTest {
     @BeforeEach
     void setUp() {
         when(serviceMock.list()).thenReturn(LIST);
-        out = new DepartmentServiceImpl((EmployeeServiceImpl) serviceMock);
+        out = new DepartmentServiceImpl ((EmployeeService) serviceMock);
 
     }
 
@@ -44,20 +45,18 @@ public class DepartmentServiceTest {
                 new Employee("Олег", "Васильев", 160000, 1),
                 new Employee("Олим", "Воронов", 260000, 2)
         );
-        List<Employee> result = out.getEmployees(1);
-        Assertions.assertEquals(expected.size(), result.size());
-        Assertions.assertEquals(expected.get(0), result.get(0));
-        Assertions.assertEquals(expected.get(1), result.get(1));
-
-        verify(serviceMock, only()).list();
+        List<Employee> result = out.getAllByDepartment(2);
+        assertEquals(expected.size(), result.size());
+        assertIterableEquals(expected, result);
     }
 
     @Test
     void shouldReturnSumSalaryCorrectly() {
         int expected = 7000;
         int result = out.getSum(1);
+        assertEquals(expected, result);
 
-        verify(serviceMock, only().list());
+        verify(serviceMock, only()).list();
     }
 
     @Test
@@ -90,22 +89,21 @@ public class DepartmentServiceTest {
 
     @Test
     void testGetEmployees() {
-        Map<Integer, List<Employee>> result = out.getEmployees();
+        Map<Integer, List<Employee>> result = out.getAll();
         List<Employee> res1 = result.get(1);
         List<Employee> exp1 = List.of(
                 new Employee("Олег", "Васильев", 160000, 1),
                 new Employee("Олим", "Воронов", 260000, 2)
         );
         Assertions.assertEquals(exp1.size(), res1.size());
-        Assertions.assertEquals(exp1.get(0), res1.get(0));
-        Assertions.assertEquals(exp1.get(1), res1.get(1));
+        assertIterableEquals(exp1, res1);
 
         List<Employee> res2 = result.get(2);
         List<Employee> exp2 = List.of(
                 new Employee("Анна", "Цветкова", 300000, 2)
         );
         Assertions.assertEquals(exp2.size(), res2.size());
-        Assertions.assertEquals(exp2.get(0), res2.get(0));
+        assertIterableEquals(exp2, res2);
 
         verify(serviceMock, only()).list();
     }

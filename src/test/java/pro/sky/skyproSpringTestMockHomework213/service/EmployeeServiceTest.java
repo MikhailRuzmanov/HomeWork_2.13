@@ -11,8 +11,6 @@ import pro.sky.skyproSpringTestMockHomework213.model.Employee;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 public class EmployeeServiceTest {
     private EmployeeService out;
@@ -117,7 +115,7 @@ public class EmployeeServiceTest {
         assertEquals(expected, result);
     }
     @Test
-    void list(){
+    void lis(){
         out.add("Андрей","Рублёв", 500000,2);
         out.add("Иван", "Поленов", 650000, 1);
         List<Employee> expected = List.of(new Employee("Иван", "Поленов", 650000, 1),

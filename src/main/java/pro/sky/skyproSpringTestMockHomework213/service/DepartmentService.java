@@ -15,4 +15,6 @@ public interface DepartmentService {
     int getSum(int dep);
 
     public Map<Integer, List<Employee>> getAll();
+
+
 }

@@ -43,7 +43,7 @@ public class DepartmentController {
     }
     @GetMapping("/employees")
     public Map<Integer, List<Employee>> getEmployees(){
-        return service.getEmployees();
+        return service.getAll();
     }
 
 
