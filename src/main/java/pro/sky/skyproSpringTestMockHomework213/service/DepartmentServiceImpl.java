@@ -19,14 +19,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public List<Employee>getAllByDepartment(int dep){
-        return employeeServiceImpl.getMap().values()
+        return employeeServiceImpl.list()
                 .stream()
                 .filter(employee -> employee.getDepartment() == dep)
                 .collect(Collectors.toList());
     }
     @Override
     public Employee getMin(int dep){
-    return employeeServiceImpl.getMap().values()
+    return employeeServiceImpl.list()
             .stream()
             .filter(employee -> employee.getDepartment() == dep)
             .min(Comparator.comparingDouble(employeeServiceImpl-> employeeServiceImpl.getSalary()))
@@ -35,7 +35,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 }
     @Override
     public Employee getMax(int dep){
-        return employeeServiceImpl.getMap().values()
+        return employeeServiceImpl.list()
                 .stream()
                 .filter(employee -> employee.getDepartment() == dep)
                 .max(Comparator.comparingDouble(employeeServiceImpl-> employeeServiceImpl.getSalary()))
@@ -43,7 +43,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
     @Override
     public int getSum(int dep){
-        return employeeServiceImpl.getMap().values()
+        return employeeServiceImpl.list()
                 .stream()
                 .filter(employee -> employee.getDepartment() == dep)
                 .mapToInt(Employee::getSalary)
@@ -54,6 +54,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Map<Integer, List<Employee>> getAll() {
         return employeeServiceImpl.findAll()
+                .stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+    }
+    @Override
+    public Map<Integer, List<Employee>> getAlls() {
+        return employeeServiceImpl.list()
                 .stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment));
     }

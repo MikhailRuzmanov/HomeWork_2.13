@@ -16,9 +16,9 @@ public class EmployeeServiceTest {
     private EmployeeService out;
 
     private final Employee FIRST_EMPLOYEE = new Employee(
-            "Олег", "Васильев", 2, 250000);
+            "Олег", "Васильев", 250000,2);
     private final Employee SECOND_EMPLOYEE = new Employee(
-            "Ефим", "Васильев", 3, 240000);
+            "Ефим", "Васильев",240000, 3);
 
     @BeforeEach
     void setUp() {
@@ -75,7 +75,7 @@ public class EmployeeServiceTest {
     @Test
     void shouldThrowBadRequestException() {
         Assertions.assertThrows(BadRequestException.class,
-                () -> out.add("1", "2", 100000, 1));
+                () -> out.add("5", "Васильев", 2, 250000));
     }
 
     @Test

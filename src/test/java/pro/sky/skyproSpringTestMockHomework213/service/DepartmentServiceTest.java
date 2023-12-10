@@ -28,18 +28,25 @@ public class DepartmentServiceTest {
 
     @Mock
     private EmployeeService serviceMock;
-
     private DepartmentService out;
 
     @BeforeEach
     void setUp() {
-        when(serviceMock.list()).thenReturn(LIST);
-        out = new DepartmentServiceImpl ((EmployeeService) serviceMock);
+        //when(serviceMock.getMap()).thenReturn(LIST);
+        out = new DepartmentServiceImpl ( serviceMock);
 
     }
 
     @Test
+    void maxTest(){
+        when(serviceMock.list()).thenReturn(LIST);
+        assertEquals((out.getMax(2)), LIST.get(2));
+        assertTrue((out.getMax(2).getSalary())== 300000);
+    }
+
+    @Test
     void getEmployees() {
+        when(serviceMock.list()).thenReturn(LIST);
 
         List<Employee> expected = List.of(
                 new Employee("Олег", "Васильев", 160000, 1),
@@ -52,51 +59,57 @@ public class DepartmentServiceTest {
 
     @Test
     void shouldReturnSumSalaryCorrectly() {
-        int expected = 7000;
-        int result = out.getSum(1);
+        when(serviceMock.list()).thenReturn(LIST);
+        int expected = 560000;
+        int result = out.getSum(2);
         assertEquals(expected, result);
+        assertTrue((out.getSum(2))== 560000);
 
-        verify(serviceMock, only()).list();
+
     }
 
     @Test
     void shouldTrowEmployeeNotFoundExceptionOnSalaryMin() {
-        assertThrows(EmployeeNotFoundException.class, () -> out.getMin(2));
+
+                assertThrows(EmployeeNotFoundException.class, () -> out.getMin(2));
     }
 
     @Test
     void shouldReturnMinSalaryCorrectly() {
-        int expected = 23000;
-        Employee result = out.getMin(2);
+        when(serviceMock.list()).thenReturn(LIST);
+        assertEquals((out.getMin(1)), LIST.get(0));
+        assertTrue((out.getMin(1).getSalary())== 160000);
 
-        assertEquals(expected, result);
 
     }
 
     @Test
     void shouldTrowEmployeeNotFoundExceptionOnSalaryMax() {
+
         assertThrows(EmployeeNotFoundException.class, () -> out.getMax(2));
     }
 
     @Test
     void shouldReturnMaxSalaryCorrectly() {
-        int expected = 85000;
-        Employee result = out.getMax(2);
-
-        assertEquals(expected, result);
+        when(serviceMock.list()).thenReturn(LIST);
+        assertEquals((out.getMax(2)), LIST.get(2));
 
     }
 
+
     @Test
     void testGetEmployees() {
-        Map<Integer, List<Employee>> result = out.getAll();
-        List<Employee> res1 = result.get(1);
+        when(serviceMock.list()).thenReturn(LIST);
+
+        Map<Integer, List<Employee>> result = out.getAlls();
+        List<Employee> res1 = result.get(2);
         List<Employee> exp1 = List.of(
                 new Employee("Олег", "Васильев", 160000, 1),
                 new Employee("Олим", "Воронов", 260000, 2)
         );
         Assertions.assertEquals(exp1.size(), res1.size());
         assertIterableEquals(exp1, res1);
+
 
         List<Employee> res2 = result.get(2);
         List<Employee> exp2 = List.of(

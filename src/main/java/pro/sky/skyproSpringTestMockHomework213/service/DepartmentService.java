@@ -17,4 +17,5 @@ public interface DepartmentService {
     public Map<Integer, List<Employee>> getAll();
 
 
+    Map<Integer, List<Employee>> getAlls();
 }

@@ -11,7 +11,7 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
-    final int MAX = 10;
+    public static final int MAX = 10;
 
     private final Map<String, Employee> employeeMap;
 
@@ -27,6 +27,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 
         Employee employee = new Employee(firstName, lastName, salary, department);
         String s= firstName + lastName;
+
+        if(employeeMap.size()>=MAX)
+            throw new EmployeeAlreadyAddedException();
+
         if (employeeMap.containsKey(s)) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -70,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     @Override
     public List<Employee>list(){
+
         return new ArrayList<>(employeeMap.values());
     }
 
@@ -79,6 +84,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     private String getKey(String firstName, String lastName){
         return firstName+lastName;
     }
+
     
 
 

@@ -17,8 +17,8 @@ public class DepartmentController {
     public DepartmentController(DepartmentService service) {
         this.service = service;
     }
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllByDep(@RequestParam(required = false) Integer dep){
+    @GetMapping("{id}/employees")
+    public ResponseEntity<?> getAllByDepartment(@RequestParam(required = false) Integer dep){
         return dep == null ?
                 ResponseEntity.ok(service.getAll())
                 :
