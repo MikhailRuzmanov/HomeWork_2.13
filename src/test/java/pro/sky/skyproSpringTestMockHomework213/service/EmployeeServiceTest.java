@@ -1,9 +1,9 @@
 package pro.sky.skyproSpringTestMockHomework213.service;
 
-import org.apache.coyote.BadRequestException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pro.sky.skyproSpringTestMockHomework213.exeption.BadRequestException;
 import pro.sky.skyproSpringTestMockHomework213.exeption.EmployeeAlreadyAddedException;
 import pro.sky.skyproSpringTestMockHomework213.exeption.EmployeeNotFoundException;
 import pro.sky.skyproSpringTestMockHomework213.model.Employee;
@@ -66,7 +66,7 @@ public class EmployeeServiceTest {
         out.add("Валентина", "Стружкина", 640000, 5);
         out.add("Валерьян", "Крючков", 7000000, 5);
         out.add("Роман", "Ильин", 2500000, 5);
-        Assertions.assertThrows(EmployeeAlreadyAddedException.class,
+        Assertions.assertThrows(BadRequestException.class,
                 () -> out.add("Клубника", "Ежевика", 100, 1));
 
 
@@ -74,7 +74,8 @@ public class EmployeeServiceTest {
 
     @Test
     void shouldThrowBadRequestException() {
-        Assertions.assertThrows(BadRequestException.class,
+        out.add("5", "Васильев", 2, 250000);
+        Assertions.assertThrows(EmployeeAlreadyAddedException.class,
                 () -> out.add("5", "Васильев", 2, 250000));
     }
 

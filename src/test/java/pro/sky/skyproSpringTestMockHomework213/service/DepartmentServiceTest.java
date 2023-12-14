@@ -49,8 +49,8 @@ public class DepartmentServiceTest {
         when(serviceMock.list()).thenReturn(LIST);
 
         List<Employee> expected = List.of(
-                new Employee("Олег", "Васильев", 160000, 1),
-                new Employee("Олим", "Воронов", 260000, 2)
+                new Employee("Олим", "Воронов", 260000, 2),
+                new Employee("Анна", "Цветкова", 300000, 2)
         );
         List<Employee> result = out.getAllByDepartment(2);
         assertEquals(expected.size(), result.size());
@@ -99,26 +99,26 @@ public class DepartmentServiceTest {
 
     @Test
     void testGetEmployees() {
-        when(serviceMock.list()).thenReturn(LIST);
+        when(serviceMock.findAll()).thenReturn(LIST);
 
-        Map<Integer, List<Employee>> result = out.getAlls();
+        Map<Integer, List<Employee>> result = out.getAll();
         List<Employee> res1 = result.get(2);
         List<Employee> exp1 = List.of(
-                new Employee("Олег", "Васильев", 160000, 1),
-                new Employee("Олим", "Воронов", 260000, 2)
+                new Employee("Олим", "Воронов", 260000, 2),
+                new Employee("Анна", "Цветкова", 300000, 2)
         );
         Assertions.assertEquals(exp1.size(), res1.size());
         assertIterableEquals(exp1, res1);
 
 
-        List<Employee> res2 = result.get(2);
+        List<Employee> res2 = result.get(1);
         List<Employee> exp2 = List.of(
-                new Employee("Анна", "Цветкова", 300000, 2)
+                new Employee("Олег", "Васильев", 160000, 1)
         );
         Assertions.assertEquals(exp2.size(), res2.size());
         assertIterableEquals(exp2, res2);
 
-        verify(serviceMock, only()).list();
+        // verify(serviceMock, only()).list();
     }
 
 

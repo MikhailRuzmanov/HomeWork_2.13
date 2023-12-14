@@ -2,6 +2,7 @@ package pro.sky.skyproSpringTestMockHomework213.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import pro.sky.skyproSpringTestMockHomework213.exeption.BadRequestException;
 import pro.sky.skyproSpringTestMockHomework213.exeption.EmployeeAlreadyAddedException;
 import pro.sky.skyproSpringTestMockHomework213.exeption.EmployeeNotFoundException;
 import pro.sky.skyproSpringTestMockHomework213.model.Employee;
@@ -29,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         String s= firstName + lastName;
 
         if(employeeMap.size()>=MAX)
-            throw new EmployeeAlreadyAddedException();
+            throw new BadRequestException();
 
         if (employeeMap.containsKey(s)) {
             throw new EmployeeAlreadyAddedException();
